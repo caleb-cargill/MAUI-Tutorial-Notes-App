@@ -13,24 +13,45 @@ public partial class AllNotesPage : ContentPage
 
     protected override void OnAppearing()
     {
-		if (BindingContext is AllNotes allNotes)
-			allNotes.LoadNotes();
+		try
+		{
+			if (BindingContext is AllNotes allNotes)
+				allNotes.LoadNotes();
+		}
+		catch (Exception ex)
+		{
+			throw new Exception("Error occurred while loading existing notes", ex);
+		}
     }
 
 	private async void Add_Clicked(object sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync(nameof(NotePage));
+		try
+		{
+			await Shell.Current.GoToAsync(nameof(NotePage));
+		}
+		catch (Exception ex)
+		{
+			throw new Exception("Error occurred while adding new Note", ex);
+		}
 	}
 
 	private async void notesCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
 	{
-		if (e.CurrentSelection.Any())
+		try
 		{
-			var note = e.CurrentSelection[0] as Note;
+			if (e.CurrentSelection.Any())
+			{
+				var note = e.CurrentSelection[0] as Note;
 
-			await Shell.Current.GoToAsync($"{nameof(NotePage)}?{nameof(NotePage.ItemId)}={note.FileName}");
+				await Shell.Current.GoToAsync($"{nameof(NotePage)}?{nameof(NotePage.ItemId)}={note.FileName}");
 
-			notesCollection.SelectedItem = null;
+				notesCollection.SelectedItem = null;
+			}
+		}
+		catch (Exception ex)
+		{
+			throw new Exception("Error occurred while selecting existing Note", ex);
 		}
 	}
 }
