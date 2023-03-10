@@ -6,4 +6,4 @@ Created by following the following tutorial: [Create a .NET MAUI App](https://le
 
 
 ### Demo
-<img src="Resources/Images/app-demo.gif" Height="50%" Width="50%" />
+<img src="Resources/Images/app-demo.gif" Height="25%" Width="25%" />
